@@ -45,7 +45,7 @@ app.post("/webhook", async (req, res) => {
     console.log(`Mensaje recibido de ${from}: ${text}`);
 
     const answer = await consultarAsistente(text);
-
+    console.log("Respuesta a wssp: ", answer);
     await axios.post(
       `https://graph.facebook.com/v18.0/${PHONE_NUMBER_ID}/messages`,
       {
@@ -95,7 +95,7 @@ async function consultarAsistente(userMessage) {
     const messages = await client.beta.threads.messages.list(thread.id);
     const answer = messages.data[0].content[0].text.value;
 
-    console.log("Respuesta asistente: "answer)
+    console.log("Respuesta asistente: ", answer);
 
     return sanitizeMessage(answer);
 }
