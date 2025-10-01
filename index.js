@@ -95,6 +95,8 @@ async function consultarAsistente(userMessage) {
     const messages = await client.beta.threads.messages.list(thread.id);
     const answer = messages.data[0].content[0].text.value;
 
+    console.log("Respuesta asistente: "answer)
+
     return sanitizeMessage(answer);
 }
 
