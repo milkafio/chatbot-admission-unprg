@@ -101,7 +101,7 @@ async function consultarAsistente(userMessage) {
 }
 
 function sanitizeMessage(message) {
-  return message.replace(/\[\d+:\d+†source\]/g, "").trim();
+  return message.replace(/【.*?source】/g, "").trim()
 }
 
 const PORT = process.env.PORT || 3000;
