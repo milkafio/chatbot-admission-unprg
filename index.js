@@ -28,11 +28,11 @@ app.get("/webhook", (req, res) => {
 });
 
 app.post("/webhook", async (req, res) => {
-  res.sendStatus(200); // 👉 responder rápido para que Meta no reintente
+  res.sendStatus(200);
 
   try {
     const message = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (!message || message.type !== "text") return; // filtrar solo texto
+    if (!message || message.type !== "text") return;
 
     if (processedMessages.has(message.id)) {
       return;
@@ -67,7 +67,7 @@ app.post("/webhook", async (req, res) => {
 });
 
 async function consultarAsistente(userMessage) {
-    console.log("Creando thread...");
+    console.log("Creando hilo");
     const thread = await client.beta.threads.create();
 
     await client.beta.threads.messages.create(thread.id, {
@@ -75,7 +75,7 @@ async function consultarAsistente(userMessage) {
     content: userMessage
     });
 
-    console.log("Ejecutando asistente...");
+    console.log("Ejecutando asistente");
     const run = await client.beta.threads.runs.create(thread.id, {
     assistant_id: ASSISTANT_ID
     });
